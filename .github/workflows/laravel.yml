@@ -34,7 +34,6 @@ jobs:
         run: vendor/bin/phpunit
 
   deployment:
-      environment: Staging
 
       runs-on: ubuntu-latest
 
