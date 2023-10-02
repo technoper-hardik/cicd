@@ -37,6 +37,8 @@ jobs:
     environment: Staging
 
     steps:
+      - uses: actions/checkout@v3
+
       # Load the pre-build project files:
       - uses: actions/download-artifact@v3
         with:
