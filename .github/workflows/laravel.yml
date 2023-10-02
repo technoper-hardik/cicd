@@ -52,7 +52,7 @@ jobs:
             hostname: api.inhaven.co
             user: root
             path: /var/www/cicd
-            ssh_key: {{ secrets.SSH_KEY }}
+            ssh_key: ${{ secrets.SSH_KEY }}
         - name: Become superuser
           run: sudo su
         - name: List everything
