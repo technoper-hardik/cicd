@@ -43,7 +43,7 @@ jobs:
           path: /tmp/github-actions
 
   deployment:
-
+      needs: [tests]
       runs-on: ubuntu-latest
 
       steps:
