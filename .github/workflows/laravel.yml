@@ -1,8 +1,9 @@
 name: Laravel Tests
 
 on:
-  pull_request:
-    branches: [ "staging" ]
+  push:
+    branches:
+      - staging
 
 jobs:
   tests:
@@ -31,3 +32,29 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
+
+  deployment:
+      environment: Staging
+
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+
+        # Load the pre-build project files:
+        - uses: actions/download-artifact@v3
+          with:
+            name: build-artifact
+            path: /
+
+        # Then deploy to your server of choice
+        - uses: php-actions/deploy
+          with:
+            hostname: api.inhaven.co
+            user: webdeploy
+            path: /var/www/cicd
+            ssh_key: {{ secrets.ssh_key }}
+        - name: Become superuser
+          run: sudo su
+        - name: List everything
+          run: ls -la
