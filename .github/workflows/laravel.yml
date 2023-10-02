@@ -33,6 +33,15 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
 
+      - name: Archive build
+        run: mkdir /tmp/github-actions/ && tar -cvf /tmp/github-actions/build.tar ./
+
+      - name: Upload build archive for test runners
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: /tmp/github-actions
+
   deployment:
 
       runs-on: ubuntu-latest
@@ -44,7 +53,10 @@ jobs:
         - uses: actions/download-artifact@v3
           with:
             name: build-artifact
-            path: /
+            path: /tmp/github-actions
+
+        - name: Extract build archive
+          run: tar -xvf /tmp/github-actions/build.tar ./
 
         # Then deploy to your server of choice
         - uses: php-actions/deploy-ssh@wip
