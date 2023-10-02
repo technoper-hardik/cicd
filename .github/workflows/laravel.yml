@@ -48,10 +48,10 @@ jobs:
             path: /
 
         # Then deploy to your server of choice
-        - uses: php-actions/deploy
+        - uses: php-actions/deploy-ssh@wip
           with:
             hostname: api.inhaven.co
-            user: webdeploy
+            user: root
             path: /var/www/cicd
             ssh_key: {{ secrets.ssh_key }}
         - name: Become superuser
