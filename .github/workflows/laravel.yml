@@ -62,7 +62,7 @@ jobs:
         - uses: php-actions/deploy-ssh@wip
           with:
             hostname: api.inhaven.co
-            user: root
+            user: deploy
             path: /var/www/cicd
             ssh_key: ${{ secrets.SSH_KEY }}
         - name: Become superuser
